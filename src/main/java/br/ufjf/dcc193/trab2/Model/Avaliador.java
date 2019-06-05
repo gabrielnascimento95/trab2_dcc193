@@ -21,7 +21,7 @@ public class Avaliador {
     private String codigo;
     private String email;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Area> atividades;
+    private List<Area> areas;
 
 
     public Avaliador(){
@@ -63,6 +63,13 @@ public class Avaliador {
     }
 
     /**
+     * @return the areas
+     */
+    public List<Area> getAreas() {
+        return areas;
+    }
+
+    /**
      * @param codigo the codigo to set
      */
     public void setCodigo(String codigo) {
@@ -88,5 +95,12 @@ public class Avaliador {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @param areas the areas to set
+     */
+    public void setAreas(List<Area> areas) {
+        this.areas = areas;
     }
 }

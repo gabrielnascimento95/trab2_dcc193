@@ -1,4 +1,4 @@
-package br.ufjf.dcc193.trab2.Model;
+package br.ufjf.dcc193.trab2.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

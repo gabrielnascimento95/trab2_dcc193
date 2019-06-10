@@ -1,4 +1,4 @@
-package br.ufjf.dcc193.trab2.Model;
+package br.ufjf.dcc193.trab2.model;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
 /**
  * Avaliador
@@ -17,12 +18,18 @@ public class Avaliador {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotBlank
     private String nome;
+
+    @NotBlank
     private String codigo;
+
+    @NotBlank
     private String email;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Area> areas;
-
 
     public Avaliador(){
 

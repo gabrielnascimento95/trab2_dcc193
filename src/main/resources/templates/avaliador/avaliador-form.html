@@ -32,15 +32,27 @@
 			<a href="#"><input type="button" value="Sair" class="btn btn-danger" /></a>
         </nav> 
         <br/>
-        <h3 style="text-align: center">Painel</h3>
-        <div class="row">
-            <div class="col-6">
-                <a href="novo.html" class="btn btn-primary form-control">Novo</a>
+        <h3 style="text-align: center">Novo avaliador</h3>
+        <form th:action="@{/avaliador/salvar.html}" th:method="${avaliador.id} == 0 ? post : put" th:object="${avaliador}">
+            <input id="id" type="hidden" th:field="*{id}"/>
+            <div class="form-group">
+                <label for="titulo">Nome </label>
+                <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" aria-describedby="helpNome">
+                <small id="helpNome" class="form-text text-muted">Digite o nome completo.</small>
+                <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
             </div>
-            <div class="col-6">
-                <a href="listar.html" class="btn btn-secondary form-control">Listar</a>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" name="email">
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
             </div>
-        </div>    
+            <div class="form-group">
+                <label for="codigo">Código</label>
+                <input type="text" class="form-control" id="codigo" name="codigo">
+                <div th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
     </div>
     <footer class="page-footer font-small">
         <div class="text-center py-3">

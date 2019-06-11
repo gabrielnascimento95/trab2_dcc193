@@ -4,44 +4,45 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.persistence.OneToOne;
+import javax.persistence.FetchType;
 
 /**
  * Trabalho
  */
 @Entity
 public class Trabalho {
-    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @NotBlank(message = "É preciso um título!")
     private String titulo;
+    @NotBlank(message = "É preciso uma descrição!")
     private String descricao;
-    private String URL;
-    private String areaConhecimento;
+    @NotBlank(message = "É preciso uma url!")
+    private String url;    
+    @OneToOne(fetch = FetchType.EAGER)
+    private Area areaConhecimento;
 
-    public Trabalho(){
-
+    /**
+     *
+     */
+    public Trabalho() {
     }
 
-    public Trabalho(String titulo, String descricao, String url, String area){
+    /**
+     *
+     * @param titulo
+     * @param descricao
+     * @param url
+     * @param areaConhecimento
+     */
+    public Trabalho(String titulo, String descricao, String url, Area areaConhecimento) {
         this.titulo = titulo;
         this.descricao = descricao;
-        this.URL = url;
-        this.areaConhecimento = area;
-    }
-
-    /**
-     * @return the areaConhecimento
-     */
-    public String getAreaConhecimento() {
-        return areaConhecimento;
-    }
-
-    /**
-     * @return the descricao
-     */
-    public String getDescricao() {
-        return descricao;
+        this.url = url;
+        this.areaConhecimento = areaConhecimento;
     }
 
     /**
@@ -52,34 +53,6 @@ public class Trabalho {
     }
 
     /**
-     * @return the titulo
-     */
-    public String getTitulo() {
-        return titulo;
-    }
-
-    /**
-     * @return the uRL
-     */
-    public String getURL() {
-        return URL;
-    }
-
-    /**
-     * @param areaConhecimento the areaConhecimento to set
-     */
-    public void setAreaConhecimento(String areaConhecimento) {
-        this.areaConhecimento = areaConhecimento;
-    }
-
-    /**
-     * @param descricao the descricao to set
-     */
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    /**
      * @param id the id to set
      */
     public void setId(Long id) {
@@ -87,16 +60,72 @@ public class Trabalho {
     }
 
     /**
-     * @param titulo the titulo to set
+     *
+     * @return
+     */
+    public String getTitulo() {
+        return titulo;
+    }
+
+    /**
+     *
+     * @param titulo
      */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
     /**
-     * @param uRL the uRL to set
+     *
+     * @return
      */
-    public void setURL(String uRL) {
-        URL = uRL;
+    public String getDescricao() {
+        return descricao;
+    }
+
+    /**
+     *
+     * @param descricao
+     */
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     *
+     * @param url
+     */
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Area getAreaConhecimento() {
+        return areaConhecimento;
+    }
+
+    /**
+     *
+     * @param areaConhecimento
+     */
+    public void setAreaConhecimento(Area areaConhecimento) {
+        this.areaConhecimento = areaConhecimento;
+    }
+
+    @Override
+    public String toString() {
+        return "Trabalho{" + "titulo=" + titulo + ", descricao=" + descricao + ", url=" + url + ", areaConhecimento="
+                + areaConhecimento + '}';
     }
 }

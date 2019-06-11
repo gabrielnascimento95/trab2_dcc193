@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
 
@@ -14,9 +15,10 @@ import javax.validation.constraints.PositiveOrZero;
  */
 
 @Entity
+@Table(name = "revisao")
 public class Revisao {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @NotBlank(message = "É preciso uma nota!")
     @PositiveOrZero(message = "É preciso inserir uma nota maior ou igual a zero!")

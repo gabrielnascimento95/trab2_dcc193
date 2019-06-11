@@ -8,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * Avaliador
@@ -24,7 +26,7 @@ public class Avaliador {
     @NotBlank(message = "É preciso um e-mail!")
     @Email(message = "É preciso um e-mail válido!")
     private String email;
-    @NotBlank(message = "É preciso um código!")
+    @NotNull(message = "É preciso um código!")
     private int codigo;
     @OneToMany(fetch = FetchType.EAGER)
     private List<Area> areaConhecimento;

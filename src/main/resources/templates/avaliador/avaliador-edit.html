@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="../webjars/bootstrap/4.3.1/css/bootstrap.min.css"rel="stylesheet">
+    <link href="../../webjars/bootstrap/4.3.1/css/bootstrap.min.css"rel="stylesheet">
     <title>Sistema de avaliação anônima de trabalhos</title>
 </head>
 <body>
@@ -32,8 +32,9 @@
 			<a href="#"><input type="button" value="Sair" class="btn btn-danger" /></a>
         </nav> 
         <br/>
-        <h3 style="text-align: center">Novo avaliador</h3>
-        <form th:action="@{/avaliador/cadastrarAvaliador.html}" th:method="post" th:object="${avaliador}">
+        <h3 style="text-align: center">Editar avaliador</h3>
+        <form th:action="@{../editar/{id}(id=*{id})}" th:method="post" th:object="${avaliador}">
+            <input id="id" type="hidden" th:field="*{id}"/>
             <div class="form-group">
                 <label for="titulo">Nome </label>
                 <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" aria-describedby="helpNome">
@@ -47,7 +48,7 @@
             </div>
             <div class="form-group">
                 <label for="codigo">Código</label>
-                <input type="number" class="form-control" id="codigo" name="codigo">
+                <input type="number" class="form-control" id="codigo" name="codigo" th:field="*{codigo}">
                 <div th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></div>
             </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
@@ -59,7 +60,7 @@
             target="_top">Gabriel Nascimento</a> | Sistemas de Informação | UFJF
         </div>
     </footer>
-    <script src="../webjars/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../webjars/jquery/2.1.4/jquery.js" type="text/javascript"></script>
+    <script src="../../webjars/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../webjars/jquery/2.1.4/jquery.js" type="text/javascript"></script>
 </body>
 </html>

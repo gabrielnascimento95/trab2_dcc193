@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -11,9 +12,10 @@ import javax.validation.constraints.NotBlank;
  */
 
 @Entity
+@Table(name = "area")
 public class Area {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
   @NotBlank(message = "É preciso uma descrição!")
   private String nome;

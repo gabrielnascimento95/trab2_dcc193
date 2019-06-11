@@ -6,12 +6,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.FetchType;
 
 /**
  * Trabalho
  */
 @Entity
+@Table(name = "trabalho")
 public class Trabalho {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

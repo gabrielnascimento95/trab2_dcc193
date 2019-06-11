@@ -15,10 +15,18 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "area")
 public class Area {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   @NotBlank(message = "É preciso uma descrição!")
   private String nome;
+
+  public Area(){
+
+  }
+
+  public Area(String nome){
+    this.nome = nome;
+  }
 
   /**
    * @return the id

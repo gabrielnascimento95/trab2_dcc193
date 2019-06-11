@@ -35,6 +35,11 @@
       <a href="#"><input type="button" value="Sair" class="btn btn-danger" /></a>
     </nav>
     <br />
+    <div class="row">
+      <div class="col-6">
+        <a th:href="@{novaArea.html?idAvaliador={id}(id=*{avaliador.id})}" class="btn btn-primary">Nova área</a>
+      </div>
+    </div>
     <h3 style="text-align: center">View</h3>
     <div class="form-group">
       <label for="titulo">Nome </label>
@@ -49,6 +54,26 @@
       <label for="codigo">Código</label>
       <input type="number" class="form-control" id="codigo" name="codigo" th:field="*{avaliador.codigo}" readonly>
     </div>
+    <h4 style="text-align: center">Áreas</h4>
+    <table class="table table-striped" id="atividades" name="atividades">
+      <thead class="thead-light">
+        <tr style="text-align: center">
+          <th>Nome</th>
+        </tr>
+      </thead>
+      <tbody style="text-align: center">
+        <tr th:each="area:${avaliador.areas}">
+          <td th:text="${area.nome}">nome</td>
+        </tr>
+      </tbody>
+    </table>
+    <div th:if="${#lists.isEmpty(avaliador.areas)}">
+            <div class="alert alert-info" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                Nenhuma encontrada
+            </div>
+        </div>
+      </div>
   </div>
   <footer class="page-footer font-small">
     <div class="text-center py-3">

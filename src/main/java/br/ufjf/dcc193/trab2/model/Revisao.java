@@ -18,7 +18,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Table(name = "revisao")
 public class Revisao {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank(message = "É preciso uma nota!")
     @PositiveOrZero(message = "É preciso inserir uma nota maior ou igual a zero!")

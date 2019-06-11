@@ -16,7 +16,7 @@ import javax.persistence.FetchType;
 @Table(name = "trabalho")
 public class Trabalho {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank(message = "É preciso um título!")
     private String titulo;

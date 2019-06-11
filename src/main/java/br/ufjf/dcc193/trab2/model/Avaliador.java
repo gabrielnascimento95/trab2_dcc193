@@ -2,6 +2,7 @@ package br.ufjf.dcc193.trab2.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,8 +29,8 @@ public class Avaliador {
     private String email;
     @NotNull(message = "É preciso um código!")
     private int codigo;
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Area> areaConhecimento;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Area> areas;
 
     /**
      *
@@ -54,13 +55,13 @@ public class Avaliador {
      * @param nome
      * @param email
      * @param codigo
-     * @param areaConhecimento
+     * @param areas
      */
-    public Avaliador(String nome, String email, int codigo, List<Area> areaConhecimento) {
+    public Avaliador(String nome, String email, int codigo, List<Area> areas) {
         this.nome = nome;
         this.email = email;
         this.codigo = codigo;
-        this.areaConhecimento = areaConhecimento;
+        this.areas = areas;
     }
 
     /**
@@ -129,21 +130,29 @@ public class Avaliador {
      *
      * @return
      */
-    public List<Area> getAreaConhecimento() {
-        return areaConhecimento;
+    public List<Area> getAreas() {
+        return areas;
     }
 
     /**
      *
-     * @param areaConhecimento
+     * @param areas
      */
-    public void setAreaConhecimento(List<Area> areaConhecimento) {
-        this.areaConhecimento = areaConhecimento;
+    public void setAreas(List<Area> areas) {
+        this.areas = areas;
+    }
+
+    public void addArea(Area area){
+        this.areas.add(area);
+    }
+
+    public void removeArea(Area area){
+        this.areas.remove(area);
     }
 
     @Override
     public String toString() {
-        return "Avaliador{" + "nome=" + nome + ", email=" + email + ", codigo=" + codigo + ", areaConhecimento="
-                + areaConhecimento + '}';
+        return "Avaliador{" + "nome=" + nome + ", email=" + email + ", codigo=" + codigo + ", areas="
+                + areas + '}';
     }
 }

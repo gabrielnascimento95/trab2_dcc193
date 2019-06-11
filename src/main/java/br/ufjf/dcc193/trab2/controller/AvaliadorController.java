@@ -4,18 +4,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import br.ufjf.dcc193.trab2.domain.AreaRepository;
 import br.ufjf.dcc193.trab2.domain.AvaliadorRepository;
+import br.ufjf.dcc193.trab2.domain.TrabalhoRepository;
 import br.ufjf.dcc193.trab2.model.Avaliador;
 
 /**
@@ -26,48 +22,70 @@ import br.ufjf.dcc193.trab2.model.Avaliador;
 public class AvaliadorController {
 
     @Autowired
-    AvaliadorRepository avaliadorRep;
+    AvaliadorRepository avaliadores;
+    @Autowired
+    AreaRepository areaConhecimentos;
+    @Autowired
+    TrabalhoRepository trabalhos;
 
-    @RequestMapping({"/", "/index.html"})
-    public String index(){
-        return "avaliador/avaliador-index";
+    /**
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping("avaliador.html")
+    public String avaliador(Model model) {
+        model.addAttribute("avaliador", avaliadores.findAll());
+        return "avaliador/avaliador";
     }
 
-    @GetMapping("/listar.html")
-    public ModelAndView listar(ModelMap model) {
-        model.addAttribute("avaliadores", avaliadorRep.findAll());
-        return new ModelAndView("avaliador/avaliador-list", model);
+    /**
+     *
+     * @param model
+     * @return
+     */
+    public String formAvaliador(Model model) {
+        model.addAttribute("areaConhecimento", areaConhecimentos.findAll());
+        return "avaliador/formAvaliador";
     }
 
-    @GetMapping("/novo.html")
-    public String preSalvar(@ModelAttribute("avaliador") Avaliador pessoa){
-        return "avaliador/avaliador-form";
-      }  
+    /**
+     *
+     * @param avaliador
+     * @return
+     */
+    @RequestMapping("cadastrarAvaliador.html")
+    public RedirectView cadastrarAvaliador(Avaliador avaliador) {
+        avaliadores.save(avaliador);
+        return new RedirectView("avaliador.html");
+    }
 
-    @PostMapping("/salvar.html")
-    public String salvar(@Valid @ModelAttribute("avalidor") Avaliador pessoa, BindingResult result, RedirectAttributes attr) {
-        if (result.hasErrors()) {
-            return "avaliador/avaliador-form";
+    /**
+     *
+     * @param avaliador
+     * @return
+     */
+    @RequestMapping("editarAvaliador.html")
+    public ModelAndView editarAvaliador(Avaliador avaliador) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("avaliador", avaliadores.getOne(avaliador.getId()));
+        mv.addObject("areaConhecimento", areaConhecimentos.findAll());
+        mv.setViewName("avaliador/editarAvaliador");
+        return mv;
+    }
+
+    /**
+     *
+     * @param avaliador
+     * @return true ou false
+     */
+    public Boolean identificacaoSistema(Avaliador avaliador) {
+        Avaliador aux = avaliadores.getOne(avaliador.getId());
+        if (aux != null) {
+            if (aux.getEmail() == avaliador.getEmail() && aux.getCodigo() == avaliador.getCodigo()) {
+                return true;
+            }
         }
-        avaliadorRep.save(pessoa);
-        attr.addFlashAttribute("mensagem", "Avaliador criada com sucesso.");
-        return "redirect: avaliador/avaliador-list";
-    }
-
-    @GetMapping("/{id}/atualizar")
-    public ModelAndView preAtualizar(@PathVariable("id") long id, ModelMap model) {
-        Avaliador pessoa = avaliadorRep.getOne(id);
-        model.addAttribute("avaliador", pessoa);
-        return new ModelAndView("avaliador/avaliador-form", model);
-    }
-
-    @PutMapping("/salvar.html")
-    public String atualizar(@Valid @ModelAttribute("playlist") Avaliador pessoa, BindingResult result, RedirectAttributes attr) {
-        if (result.hasErrors()) {
-            return "avaliador/avaliador-form";
-        }  
-        avaliadorRep.save(pessoa); 
-        attr.addFlashAttribute("mensagem", "Avaliador atualizada com sucesso.");
-        return "redirect: avaliador/avaliador-index";
+        return false;
     }
 }
